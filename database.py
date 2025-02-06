@@ -1,8 +1,9 @@
 import psycopg2
 import logging
 from config_integration import DB_URL, DB_USER, DB_PASS
+from config import LOG_FILE
 
-logging.basicConfig(filename="app.log", level=logging.ERROR)
+logging.basicConfig(filename=LOG_FILE, level=logging.ERROR)
 
 try:
     conn = psycopg2.connect(
