@@ -5,9 +5,11 @@ import logging
 from database import conn, cursor
 from ai_client import call_ai_model
 from messenger_client import send_response_to_client
+from config import LOG_FILE
+from config import MESSAGE_INTERVAL_SECONDS
 
 app = Flask(__name__)
-logging.basicConfig(filename="app.log", level=logging.ERROR)
+logging.basicConfig(filename=LOG_FILE, level=logging.ERROR)
 
 def get_user_and_validate(user_media_id, user_media):
     try:
@@ -26,7 +28,7 @@ def get_user_and_validate(user_media_id, user_media):
         user_id, daily_credits, total_credits, last_message_at = user
 
         # بررسی فاصله زمانی بین پیام‌ها
-        if last_message_at and (datetime.datetime.utcnow() - last_message_at).total_seconds() < 3:
+        if last_message_at and (datetime.datetime.utcnow() - last_message_at).total_seconds() < MESSAGE_INTERVAL_SECONDS:
             return None, "Message too soon"
 
         # بررسی اعتبار

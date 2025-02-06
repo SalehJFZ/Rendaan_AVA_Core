@@ -1,12 +1,10 @@
 import requests
 import logging
+from config_integration import WA_API_URL, TG_API_URL
 from config import WHATSAPP,TELEGRAM
 
-WA_API_URL = "https://messenger-api.com/send"
-TG_API_URL = "https://messenger-api2.com/send"
-
 def send_response_to_client(media,media_id, reply_to, text):
-    if (media == WHATSAPP):
+    if media == WHATSAPP:
         MESSENGER_API_URL = WA_API_URL
     else:
         MESSENGER_API_URL = TG_API_URL
